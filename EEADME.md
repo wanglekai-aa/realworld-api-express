@@ -3,7 +3,7 @@
 ## 案例介绍
 - GitHub 仓库：https://github.com/gothinkster/realworld
 - 客户端在线示例：https://demo.realworld.io/
-- 接口文档：https://github.com/gothinkster/realworld/tree/master/api
+- 接口文档：https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints
 
 ## 目录结构
 - config	# 配置文件
@@ -16,4 +16,4 @@
 - app.js	# 用于自定义启动时的初始化工作
 
 ## 路由设计
-参照：https://github.com/gothinkster/realworld/tree/master/api
+参照：https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints

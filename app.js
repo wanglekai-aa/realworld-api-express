@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const router = require('./router')
 
 const app = express()
 
@@ -16,13 +17,7 @@ app.use(morgan('dev'))  // 日志输出
 app.use(express.json())
 app.use(express.urlencoded())
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
-app.post('/', (req, res) => {
-  console.log(req.body)
-  res.send('post /')
-})
+app.use('/api', router)
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
