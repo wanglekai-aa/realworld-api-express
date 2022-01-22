@@ -2,6 +2,6 @@ const crypto = require('crypto')
 
 module.exports = str => {
     return crypto.createHash('md5')
-            .update('pwd', + str)
+            .update('pwd' + str)
             .digest('hex')
 }

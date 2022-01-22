@@ -11,8 +11,8 @@ router.get('/user', userContr.getCur)
 // Update User
 router.put('/user', userContr.update)
 
-// Authentication 
-router.post('/users/login', userContr.login)
+// Authentication 用户登录
+router.post('/users/login',userValidator.login , userContr.login)
 
 // Registration 用户注册
 router.post('/users', userValidator.register , userContr.register)

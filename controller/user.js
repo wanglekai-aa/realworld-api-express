@@ -1,7 +1,12 @@
 const { User } = require("../model")
 
+// 用户登录
 exports.login = async (req, res, next) => {
     try {
+        /**
+         * 数据验证，生成 token
+         * 发送响应 (包含 token 信息)
+        */
         res.send('post / User login test...')
     } catch (err) {
         next(err)
