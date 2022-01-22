@@ -7,7 +7,7 @@ exports.login = async (req, res, next) => {
         next(err)
     }
 }
-// Registration  用户组册
+// Registration  用户注册
 exports.register =  async (req, res, next) => {
     try {
         /**
