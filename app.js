@@ -8,6 +8,7 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 
+require('./model')
 // 为客户端提供跨域资源请求
 app.use(cors())
 

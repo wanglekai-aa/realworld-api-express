@@ -1,3 +1,5 @@
+const { User } = require("../model")
+
 exports.login = async (req, res, next) => {
     try {
         res.send('post / User login test...')
@@ -5,10 +7,24 @@ exports.login = async (req, res, next) => {
         next(err)
     }
 }
-// Registration
+// Registration  用户组册
 exports.register =  async (req, res, next) => {
     try {
-        res.send('POST /api/users Registration ...')
+        /**
+         * 1. 获取请求数据
+         * 2. 数据验证
+         * 3. 验证通过，将数据保存到数据库中
+         * 4. 发送响应
+        */
+    //    console.log(req.body)
+        const user = new User(req.body.user)
+
+        await user.save()
+
+        res.status(201).json({
+            user
+        })
+        // res.send('POST /api/users Registration ...')
     } catch (err) {
         next(err)
     }
