@@ -65,3 +65,12 @@ exports.getArticles = async (req, res, next) => {
         next(error)
     }
 }
+
+// Update Article
+exports.updateArticle = async (req, res, next) => {
+    try {
+        res.send('put / article')
+    } catch (error) {
+        next(error)
+    }
+}

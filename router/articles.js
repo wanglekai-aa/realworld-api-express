@@ -22,4 +22,7 @@ router.get('/:articleId', articleValidator.getArticleById, articleContr.getArtic
 // Create Article
 router.post('/',auth,  articleValidator.createArticle, articleContr.createArticle)
 
+// Update Article
+router.put('/:articleId', auth, articleValidator.updateArticle, articleContr.updateArticle)
+
 module.exports = router
