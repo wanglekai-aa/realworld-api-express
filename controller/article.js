@@ -34,3 +34,17 @@ exports.getArticleById = async (req, res, next) => {
         next(error)
     }
 }
+// List Articles
+exports.getArticles = async (req, res, next) => {
+    try {
+        const articles = await Article.find()
+        const articlesCount = await Article.countDocuments()
+
+        res.status(200).json({
+            articles,
+            articlesCount
+        })
+    } catch (error) {
+        next(error)
+    }
+}

@@ -5,13 +5,7 @@ const router = express.Router()
 const auth = require('../middleware/auth')
 
 // List Articles
-router.get('/', async (req, res, next) => {
-    try {
-        res.send('Get List Articles')
-    } catch (err) {
-        next(err)
-    }
-})
+router.get('/', articleContr.getArticles)
 
 // Feed Articles
 router.get('/feed', async (req, res, next) => {
