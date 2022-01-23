@@ -2,6 +2,7 @@ const express = require('express')
 const articleValidator = require('../validator/article')
 const articleContr = require('../controller/article')
 const router = express.Router()
+const auth = require('../middleware/auth')
 
 // List Articles
 router.get('/', async (req, res, next) => {
@@ -31,6 +32,6 @@ router.get('/:slug', async (req, res, next) => {
 })
 
 // Create Article
-router.post('/', articleValidator.createArticle, articleContr.createArticle)
+router.post('/',auth,  articleValidator.createArticle, articleContr.createArticle)
 
 module.exports = router
