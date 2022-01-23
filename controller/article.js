@@ -37,9 +37,13 @@ exports.getArticleById = async (req, res, next) => {
 // List Articles
 exports.getArticles = async (req, res, next) => {
     try {
-        let { limit = 20, offset = 0} = req.query
+        let { limit = 20, offset = 0, tag} = req.query
 
-        const articles = await Article.find()
+        // 查询文章列表-筛选标签
+        const filter = {}
+        if (tag) filter.tagList = tag
+
+        const articles = await Article.find(filter)
             .limit(parseInt(limit)) // 获取多少条数据
             .skip(parseInt(offset)) // 跳过指定条数到数据
 
