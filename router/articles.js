@@ -1,5 +1,6 @@
 const express = require('express')
-
+const articleValidator = require('../validator/article')
+const articleContr = require('../controller/article')
 const router = express.Router()
 
 // List Articles
@@ -30,12 +31,6 @@ router.get('/:slug', async (req, res, next) => {
 })
 
 // Create Article
-router.post('/', async (req, res, next) => {
-    try {
-        res.send('POST Create Article')
-    } catch (err) {
-        next(err)
-    }
-})
+router.post('/', articleValidator.createArticle, articleContr.createArticle)
 
 module.exports = router

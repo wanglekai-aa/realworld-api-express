@@ -11,5 +11,6 @@ async function main() {
 }
 
 module.exports = {
-    User: mongoose.model('User', require('./user'))
+    User: mongoose.model('User', require('./user')),
+    Article: mongoose.model('Aritcle', require('./article'))
 }
