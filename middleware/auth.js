@@ -22,7 +22,13 @@ module.exports = async (req, res, next) => {
    }
    
    try {
-      const encodedToken = await verify(token, jwtSecret)
+      const encodedToken = await verify(token, jwtSecret, {
+          /**
+           * 设置 token 有效时间 ，default: second
+           * Eg: 1000, "2 days", "10h", "7d"
+          */
+          expiresIn: '24h'
+      })
       console.log('encodedToken: ', encodedToken)
       req.user = await User.findById(encodedToken.userId)
       next()
