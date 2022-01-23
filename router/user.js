@@ -4,12 +4,13 @@ const { body, validationResult } = require('express-validator')
 const userContr = require('../controller/user')
 const { User } = require('../model')
 const userValidator = require('../validator/user')
+const auth = require('../middleware/auth')
 
 // Get Current User
-router.get('/user', userContr.getCur)
+router.get('/user',auth, userContr.getCur)
 
 // Update User
-router.put('/user', userContr.update)
+router.put('/user',auth, userContr.update)
 
 // Authentication 用户登录
 router.post('/users/login',userValidator.login , userContr.login)

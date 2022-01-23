@@ -61,9 +61,14 @@ exports.update = async (req, res, next) => {
         next(err)
     }
 }
+ // 获取用户信息
 exports.getCur = async (req, res, next) => {
     try {
-        res.send('Get Current User')
+        res.status(200).json({
+            code: 0,
+            msg: 'ger userinfo success',
+            user: req.user
+        })
     } catch (err) {
         next(err)
     }
