@@ -1,4 +1,4 @@
-const { Article } = require("../model")
+const { Article, User } = require("../model")
 
 // Create Article
 exports.createArticle = async (req, res, next) => {
@@ -37,11 +37,15 @@ exports.getArticleById = async (req, res, next) => {
 // List Articles
 exports.getArticles = async (req, res, next) => {
     try {
-        let { limit = 20, offset = 0, tag} = req.query
+        let { limit = 20, offset = 0, tag, author } = req.query
 
-        // 查询文章列表-筛选标签
+        // 查询文章列表
         const filter = {}
-        if (tag) filter.tagList = tag
+        if (tag) filter.tagList = tag // 筛选标签
+        if (author) { // 筛选文章作者
+            const user = await User.findOne({ username: author })
+            filter.author = user ? user._id : null
+        }
 
         const articles = await Article.find(filter)
             .limit(parseInt(limit)) // 获取多少条数据
