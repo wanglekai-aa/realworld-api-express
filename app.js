@@ -22,6 +22,10 @@ app.use(express.urlencoded())
 app.use('/api', router)
 app.use(errorHandler())
 
+app.use((req, res) => {
+  res.status(404).send('404 Not Found!')
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
 })
