@@ -37,7 +37,12 @@ exports.getArticleById = async (req, res, next) => {
 // List Articles
 exports.getArticles = async (req, res, next) => {
     try {
+        let { limit = 20, offset = 0} = req.query
+
         const articles = await Article.find()
+            .limit(parseInt(limit)) // 获取多少条数据
+            .skip(parseInt(offset)) // 跳过指定条数到数据
+
         const articlesCount = await Article.countDocuments()
 
         res.status(200).json({
