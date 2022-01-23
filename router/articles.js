@@ -23,13 +23,7 @@ router.get('/feed', async (req, res, next) => {
 })
 
 // Get Article
-router.get('/:slug', async (req, res, next) => {
-    try {
-        res.send('Get Article')
-    } catch (err) {
-        next(err)
-    }
-})
+router.get('/:articleId', articleValidator.getArticleById, articleContr.getArticleById)
 
 // Create Article
 router.post('/',auth,  articleValidator.createArticle, articleContr.createArticle)
