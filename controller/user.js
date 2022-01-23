@@ -1,4 +1,6 @@
 const { User } = require("../model")
+const { jwtSecret } = require('../config/config.default')
+const jwt = require('../util/jwt')
 
 // 用户登录
 exports.login = async (req, res, next) => {
@@ -7,7 +9,19 @@ exports.login = async (req, res, next) => {
          * 数据验证，生成 token
          * 发送响应 (包含 token 信息)
         */
-        res.send('post / User login test...')
+       const user = req.user.toJSON()
+
+       user.token = await jwt.sign({
+           userId: user._id
+       }, jwtSecret)
+
+       delete user.password
+
+        res.status(200).json({
+            code: 0,
+            msg: 'login success',
+            user
+        })
     } catch (err) {
         next(err)
     }
