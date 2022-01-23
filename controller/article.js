@@ -50,6 +50,10 @@ exports.getArticles = async (req, res, next) => {
         const articles = await Article.find(filter)
             .limit(parseInt(limit)) // 获取多少条数据
             .skip(parseInt(offset)) // 跳过指定条数到数据
+            .sort({
+                // -1 倒叙，1 升序
+                createdAt: -1
+            })
 
         const articlesCount = await Article.countDocuments()
 
