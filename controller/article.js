@@ -69,7 +69,21 @@ exports.getArticles = async (req, res, next) => {
 // Update Article
 exports.updateArticle = async (req, res, next) => {
     try {
-        res.send('put / article')
+        // console.log(req.body.article)
+        // console.log(req.article)
+        const article = req.article
+
+        article.title = req.body.article.title || req.article.title
+        article.description = req.body.article.description || req.article.description
+        article.body = req.body.article.body || req.article.body
+        article.updatedAt = Date.now()
+
+        await article.save()
+        res.status(200).json({
+            code: 0,
+            meg: 'update article success!',
+            data: article
+        })
     } catch (error) {
         next(error)
     }

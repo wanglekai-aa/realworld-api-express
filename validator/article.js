@@ -1,6 +1,6 @@
-const { body, param } = require("express-validator")
-const { isValidObjectId } = require('mongoose')
+const { body } = require("express-validator")
 const validata = require("../middleware/validata")
+const { Article } = require("../model")
 
 exports.createArticle = validata([
     body('article.title').notEmpty().withMessage('文章标题不能为空!'),
@@ -17,6 +17,36 @@ exports.getArticleById = validata([
     validata.isValidObjectId(['params'], 'articleId')
 ])
 
-exports.updateArticle = validata([
-    validata.isValidObjectId(['params'], 'articleId')
-])
+exports.updateArticle = [
+    /* 
+        更新文章 需要校验：
+        1. 文章是否存在
+        2. 修改的文章是否为当前登录用户
+    */
+
+    validata([
+        validata.isValidObjectId(['params'], 'articleId')
+    ]),
+    async (req ,res ,next) => {
+        let articleId = req.params.articleId
+        const article =  await Article.findById(articleId)
+
+        if (!article) {
+            return res.status(404).json({
+                code: 1,
+                error: '文章不存在!'
+            })
+        }
+        req.article = article
+        next()
+    },
+    async (req, res, next) => {
+        if (req.user._id.toString() !== req.article.author.toString()) {
+            return res.status(403).json({
+                code: 2,
+                error: '无权限修改!'
+            })
+        }
+        next()
+    }
+]
