@@ -28,4 +28,10 @@ router.put('/:articleId', auth, articleValidator.updateArticle, articleContr.upd
 // Delete Article
 router.delete('/:articleId', auth, articleValidator.deleteArticle, articleContr.deleteArticle)
 
+// Add Comments to an Article
+router.post('/:articleId/comments', auth, articleValidator.addComment, articleContr.addComment)
+
+// Get Comments from an Article
+router.get('/:articleId/comments', articleValidator.getCommentsByArt, articleContr.getCommentsByArt)
+
 module.exports = router

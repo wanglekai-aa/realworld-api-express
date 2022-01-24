@@ -51,3 +51,26 @@ exports.updateArticle = [
     }
 ]
 exports.deleteArticle = exports.updateArticle
+
+exports.addComment = [
+    validata([
+        validata.isValidObjectId(['params'], 'articleId')
+    ]),
+    async (req ,res ,next) => {
+        let articleId = req.params.articleId
+        const article =  await Article.findById(articleId)
+
+        if (!article) {
+            return res.status(404).json({
+                code: 1,
+                error: '文章不存在!'
+            })
+        }
+        req.article = article
+        next()
+    },
+    validata([
+        body('comment.body').notEmpty().withMessage('评论内容不能为空!')
+    ])
+]
+exports.getCommentsByArt = exports.getArticleById

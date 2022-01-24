@@ -1,4 +1,4 @@
-const { Article, User } = require("../model")
+const { Article, User, Comment } = require("../model")
 
 // Create Article
 exports.createArticle = async (req, res, next) => {
@@ -101,6 +101,50 @@ exports.deleteArticle = async (req, res, next) => {
             meg: 'delete article success!',
             data: []
         })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// Add Comments to an Article
+exports.addComment = async (req, res, next) => {
+    try {
+        // console.log(req.params);
+        // console.log(req.body)
+        const comment = {}
+        comment.body = req.body.comment.body
+        comment.author = req.user._id
+        comment.artId = req.article._id
+
+        // console.log(req.user._id);
+        
+        let newcomment = new Comment(comment)
+        newcomment.populate(['author', 'artId'])
+
+        // console.log(comment);
+        await newcomment.save()
+        // console.log(req.article);
+        newcomment = newcomment.toJSON()
+        delete newcomment.artId
+        res.status(200).json({
+            code: 0,
+            msg: 'add comment success',
+            comment: newcomment
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+// Get Comments from an Article
+exports.getCommentsByArt = async (req, res, next) => {
+    try {
+        const comments = await Comment.find({
+            artId: req.params.articleId
+        }).populate('author').sort({ createdAt: -1 })
+        
+        // console.log(comments);
+        res.status(200).json(comments)
+
     } catch (error) {
         next(error)
     }
