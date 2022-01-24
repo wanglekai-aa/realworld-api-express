@@ -29,7 +29,7 @@ module.exports = async (req, res, next) => {
           */
           expiresIn: '24h'
       })
-      console.log('encodedToken: ', encodedToken)
+    //   console.log('encodedToken: ', encodedToken)
       req.user = await User.findById(encodedToken.userId)
       next()
    } catch (err) {

@@ -25,4 +25,7 @@ router.post('/',auth,  articleValidator.createArticle, articleContr.createArticl
 // Update Article
 router.put('/:articleId', auth, articleValidator.updateArticle, articleContr.updateArticle)
 
+// Delete Article
+router.delete('/:articleId', auth, articleValidator.deleteArticle, articleContr.deleteArticle)
+
 module.exports = router

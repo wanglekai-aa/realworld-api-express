@@ -88,3 +88,20 @@ exports.updateArticle = async (req, res, next) => {
         next(error)
     }
 }
+
+// Delete Article
+exports.deleteArticle = async (req, res, next) => {
+    try {
+        const article = req.article
+
+        await article.remove()
+        // res.status(204).json({
+        res.status(200).json({
+            code: 0,
+            meg: 'delete article success!',
+            data: []
+        })
+    } catch (error) {
+        next(error)
+    }
+}
